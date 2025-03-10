@@ -17,8 +17,11 @@ if (!fs.existsSync(options.input)) {
 const jsonData = JSON.parse(fs.readFileSync(options.input, 'utf8'));
 const results = jsonData.map(item => `${item.StockCode}-${item.ValCode}-${item.Attraction}`);
 
-if (options.output) {
-    fs.writeFileSync(options.output, results.join('\n'), 'utf8');
+// Якщо не вказано параметр -o для виведення в інший файл, збережемо результат у result.txt
+const outputPath = options.output || 'result.txt';
+
+if (outputPath) {
+    fs.writeFileSync(outputPath, results.join('\n'), 'utf8');
 }
 
 if (options.display) {
